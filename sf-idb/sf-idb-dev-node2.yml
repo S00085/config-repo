@@ -3,6 +3,13 @@ management:
     web:
       exposure:
         include: '*'
+
+server:
+  servlet:
+      cookie:
+        secure: true
+  port: 8090
+
 logging:
   level:
     org.sysfoundry: DEBUG

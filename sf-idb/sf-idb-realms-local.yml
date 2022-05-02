@@ -1,0 +1,133 @@
+sf:
+  idb:
+    issuer-root-uri: http://localhost:9999
+    realms-root-path: /iam/auth/realms
+    oidc-path-template: /%s/oidc
+    providers:
+      identity-and-access-providers:
+        dev-keycloak:
+          name: dev-keycloak
+          description: Development Keycloak environment
+          supports-discovery: true
+          protocol: OIDC
+          info-extractors:
+            - email-claim-extractor
+            - user-names-extractor
+            - resource-access-extractor
+            - groups-extractor
+          details:
+            issuer-endpoint: http://localhost:9080/auth/realms/master
+    security:
+      realms:
+        example1:
+          name: example1
+          description: Example realm for testing with keycloak
+          active: true
+          stale-auth-request-expiry-in-minutes: 30
+          session-max-inactive-interval-in-minutes: 30
+          max-clock-skew-in-seconds: 120
+          connect-timeout-in-milliseconds: 2000
+          read-timeout-in-milliseconds: 5000
+          token-service-config:
+            relative-expiry-time: false
+            access-token-expiry-in-minutes: 5
+            refresh-token-expiry-in-minutes: 360
+            id-token-expiry-in-minutes: 360
+            active-key: key-1
+            keys:
+              key-1:
+                name: key-1
+                description: RSA Test key
+                key-text: |
+                  -----BEGIN RSA PRIVATE KEY-----
+                  MIIEpQIBAAKCAQEA1Zi1Y/o0AE9Qzv3KPAxiQDubSTmPZ7bCxsdUdRj7r91k081w
+                  XGm1NQb/zF+vG4y78x2aET9JLyo+LyU17SUadOVtH4qto3Arag4lsQwuJucPey7m
+                  qTk2aW8UQy5RdSp9+oeW8mI3EEAu4ATydonFnncJI6+emRZv43aacpf1FSjkR0gX
+                  8k8QMWfsItpFBG89ev0Gfj8KyV9NFL38dEo6n0AKAlIuMgW43BM5aQgpYgbeiQZO
+                  DRfKrDtzx2Gge3mBXXNGdY8o/5YenNxcDKkukINbLQmKigbg6K7Ul3+7X1Tk09lK
+                  YFGwD31W2NpGl+uKsYzG+YBxyJ7Cd1lPCn8UvwIDAQABAoIBADAIoXIUSDFxpMiH
+                  xjzuxAGR5f/3k8pNDUxKczHKJn+MGCqRXp1JoFiGdGvvcJ+PbIzlsUoDo1+Z7lYH
+                  1jK4T1TOa1XWh+njRcAZ4lwIUzCocZDQIUsY9KWNN09MUUE6Bw6aA1YKxDtBU8lJ
+                  E4WYwfo65rFBwzbGFu9eMqlmhtT07aVbCSxLJD/lnoUtuN5NIokrObIcRGAKKoch
+                  qWkgMMxPmUFXSX80b418OChifh6CGYRh7ZHEZmTBx1oRFED1+xyApEQoWhXbnR5+
+                  eCYjtYm113ZedK5ELZA90xJlns7solI6lEcT3UGWHGZMoi1FdoQP5dysw895UUQX
+                  ZfcxJ2ECgYEA/l6+6CXN14C8w5s7XDsbDowqLLei/vj5cRRhS53pIvGV2WkSNLN6
+                  qcd50wVMQOsGwW9vDz20mzj8Xh7PF+pV+AJaEO+hksMzWxd6Q34bHRrwyBVFrN+i
+                  uc9q7OB/3A9rLrQ2xfhL504oLyxphT5rQ71JsTsoDKA71sm1IO5624cCgYEA1vcU
+                  hSq/0FAO/oPdViXgYUQdY1LSRF2bazZhMpP/cHcmkSjs90MsaeR89DkYuZVBWu3T
+                  7+uqm7cOYIaxezneFvujC2d8J/eSId+TYYkIoxCysFch7IWWJZAWTaN2qaETV9vO
+                  dGWoZZ3N8lcir5lcFObhQg/elnwOR+OL5VGQ+wkCgYEA+ZeaF0xQ6C5oCj9dRaix
+                  adra3znpc+p1SCHJPltaEXGfqc7RkGiz6bfTr9247tIutMtU3E2d09lcuDXe2waT
+                  CGG2YnvfvJRQ5gbpbyRkEnEG5i0JSxG9KDmAH6JBk3qFnzQxsptqTzJ/d5pKh/Wx
+                  ZqxrjL4RFCJ91MnjMscOQi0CgYEAxvBUykTczUE6Dysj7HUTKZDrDZ95PpHOorLp
+                  0vAKZx+tzossekxtTvaI+U/Z5O4PVMJi8FeORZtsr8IXgG32bhilNImp6icA015g
+                  u9Qg7SAn7nBE0epzIQIu0d0klSmfiCDA+RGXfatEDDG9xPrNr/5Xm1aqbWQTp04b
+                  irco0FkCgYEAyAAE9JL75eoAdl15xEeWdAmX8LrrvO+WhjmuL4PtYYy74vH+6CUw
+                  Qn7EJ/HbCtvVzNcc1BukrXnWOUC2NqtVpNCTOUSYWJjBzBmT2pVFvsrEkqGR08R1
+                  YunyJeO0qNQZpnYtnwgSON7H3LiSQkPaSi9SNcHfRYt4rNCsHhjDcB4=
+                  -----END RSA PRIVATE KEY-----
+
+          auth-config:
+            expiry-in-minutes: 5
+          registered-clients:
+            oidc-client:
+              name: oidc-client
+              secret: oidc-client-secret
+              description: Test OIDC Client 
+              client-protocol-mappers:
+              #  - email-as-subject-client-protocol-mapper
+                - saml-primary-userid-as-subject-client-protocol-mapper
+              #  - protocol-mapper-2
+              registered-uris:
+                - http://localhost:8180/oidc-client/cb
+              registered-post-logout-redirect-uris:
+              iap-client-info-map:
+                dev-keycloak:
+                  client-id: test_client
+                  client-secret: s5DEimVSwli7YxsQPOAZcz5gpv7CO6or
+                  scopes:
+                    - openid
+                    - email
+              scopes:
+                - openid
+                - email
+                - profile
+              attributes:
+                custom_client_attribute1: test
+                custom_client_attribute2: test_val
+            client2:
+              name: client2
+              secret: client2-secret
+              description: Test Client2
+              client-protocol-mappers:
+              #  - email-as-subject-client-protocol-mapper
+                - saml-primary-userid-as-subject-client-protocol-mapper
+              #  - protocol-mapper-2
+              registered-uris:
+                - http://localhost:8180/webapp1/iam_oidc_callback
+              registered-post-logout-redirect-uris:
+                - http://localhost:8180/webapp1/protected/post_logout_callback
+                - http://localhost:8180/webapp1/unprotected/relogin.html
+              iap-client-info-map:
+                dev-keycloak:
+                  client-id: test_client
+                  client-secret: s5DEimVSwli7YxsQPOAZcz5gpv7CO6or
+                  scopes:
+                    - openid
+                    - email
+              attributes:
+                tenant: XY
+              scopes:
+                - openid
+                - email
+                - profile
+          attributes:
+            tenant_code: XY
+            environment: Development
+            region: UAE
+            solution_name: Example1
+          identity-and-access-providers:
+            - dev-keycloak
+          default-iap: dev-keycloak
+
+

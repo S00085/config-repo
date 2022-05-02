@@ -1,2 +1,8 @@
-sf-idb:
-  some-key: "Some arbitrary key configuration"
+spring:
+  cloud:
+    consul:
+      discovery:
+        tags:
+          - urlprefix-/iam
+        metadata:
+          urlprefix: /iam
